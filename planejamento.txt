@@ -1,0 +1,211 @@
+========================================================
+= Cub3d - Wolfenstein 3D                               =
+========================================================
+- Nome do programa:   cub3D
+--------------------------------------------------------
+- Entregar arquivos:    Todos os seus arquivos
+--------------------------------------------------------
+- Makefile:             all, clean, fclean, re, bonus
+--------------------------------------------------------
+- Argumentos:           um mapa no formato * .cub
+--------------------------------------------------------
+- Funções externas:     *open, close, read, write,
+                        printf, malloc, free, perror,
+                        strerror, exit
+
+                        *Todas as funções da biblioteca
+                        matemática (-lm man man 3 math)
+
+                        *Todas as funções do MinilibX
+--------------------------------------------------------
+- Libft autorizado:     Sim
+--------------------------------------------------------
+- Descrição: Você deve criar um gráfico 3D "realista"
+- representação do interior de um labirinto de um
+- perspectiva de primeira pessoa. Você tem que criar 
+- isso representação usando os princípios de Ray-Casting
+- mencionado anteriormente.
+--------------------------------------------------------
+
+As restrições são as seguintes:
+
+• Você deve usar o miniLibX. A versão que está disponível
+no sistema operacional ou em suas fontes. Se você optar
+por trabalhar com os fontes, precisará aplicar para a sua
+libft as mesmas regras escritas acima na seção Instruções
+Comuns.
+
+• O gerenciamento de sua janela deve permanecer suave:
+mudar para outra janela, minimizar, etc.
+
+• Exiba diferentes texturas de parede (a escolha é sua) que
+variam dependendo do lado da parede (Norte, Sul, Leste, Oeste).
+
+• Seu programa deve ser capaz de exibir um item (sprite) em
+vez de uma parede.
+
+• Seu programa deve ser capaz de definir as cores do piso e
+do teto para duas cores diferentes.
+
+• Caso o Deepthought tenha olhos um dia para avaliar seu projeto,
+seu programa deve salvar a primeira imagem renderizada no formato
+bmp quando seu segundo argumento for "––save".
+
+• Se nenhum segundo argumento for fornecido, o programa exibe a
+imagem em uma janela e respeita as seguintes regras:
+
+    ◦ As teclas de seta esquerda e direita do teclado devem permitir
+    que você olhe para a esquerda e para a direita no labirinto.
+
+    ◦ As teclas W, A, S e D devem permitir que você mova o ponto de
+    vista pelo labirinto.
+
+    ◦ Pressionar ESC deve fechar a janela e sair do programa de forma
+    limpa.
+
+    ◦ Clicar na cruz vermelha na moldura da janela deve fechar a
+    janela e sair do programa de forma limpa.
+
+    ◦ Se o tamanho da tela declarado no mapa for maior do que a
+    resolução de exibição, o tamanho da janela será definido dependendo
+    da resolução de exibição atual.
+
+    ◦ O uso de imagens do minilibX é fortemente recomendado.
+
+• Seu programa deve tomar como primeiro argumento um arquivo de descrição
+de cena com a extensão .cub.
+
+    ◦ O mapa deve ser composto de apenas 4 personagens possíveis: 0 para
+    um espaço vazio, 1 para uma parede, 2 para um item e N, S, E ou W para
+    a posição inicial do jogador e orientação de desova.
+
+        Este é um mapa válido simples:
+        111111
+        100101
+        102001
+        1100N1
+        111111
+
+    ◦ O mapa deve ser fechado / cercado por paredes, caso contrário o programa
+    deve retornar um erro.
+
+    ◦ Exceto para o conteúdo do mapa, cada tipo de elemento pode ser separado
+    por uma ou mais linhas vazias.
+
+    ◦ Exceto para o conteúdo do mapa que deve ser sempre o último, cada tipo
+    de elemento pode ser definido em qualquer ordem no arquivo.
+
+    ◦ Exceto para o mapa, cada tipo de informação de um elemento pode ser
+    separado por um ou mais espaço (s).
+
+    ◦ O mapa deve ser analisado como se parece no arquivo. Os espaços são uma
+    parte válida do mapa e depende de você. Você deve ser capaz de analisar
+    qualquer tipo de mapa, desde que respeite as regras do mapa.
+
+    ◦ As primeiras informações de cada elemento (exceto o mapa) são o
+    identificador de tipo (composto por um ou dois caracteres), seguido por
+    todas as informações específicas para cada objeto em uma ordem estrita, como:
+
+        ∗ Resolução:
+        R 1920 1080
+            · Identificador: R
+            · Tamanho de renderização x
+            · Tamanho de renderização
+
+        ∗ Textura norte:
+        NÃO ./path_to_the_north_texture
+            · Identificador: NÃO
+            · Caminho para a textura do norte
+
+        ∗ Textura sul:
+        SO ./path_to_the_south_texture
+            · Identificador: SO
+            · Caminho para o sul do Texas
+
+        ∗ Textura oeste:
+        WE ./path_to_the_west_texture
+            · Identificador: WE
+            · Caminho para o oeste texure
+
+        ∗ Textura leste:
+        EA ./path_to_the_east_texture
+            · Identificador: EA
+            · Caminho para a textura do leste
+
+        ∗ Textura Sprite:
+        S ./path_to_the_sprite_texture
+            · Identificador: S
+            · Caminho para a textura do sprite
+
+        ∗ Cor do piso:
+        F 220.100,0
+            · Identificador: F
+            · Cores R, G, B no intervalo [0,255]: 0, 255, 255
+
+        ∗ Cor do teto:
+        C 225,30,0
+            · Identificador: C
+            · Cores R, G, B no intervalo [0,255]: 0, 255, 255
+
+    ◦ Exemplo da parte obrigatória com uma cena .cub minimalista:
+
+        R 1920 1080
+        NO ./path_to_the_north_texture
+        SO ./path_to_the_south_texture
+        WE ./path_to_the_west_texture
+        EA ./path_to_the_east_texture
+        S ./path_to_the_sprite_texture
+        F 220,100,0
+        C 225,30,0
+        1111111111111111111111111
+        1000000000110000000000001
+        1011000001110000002000001
+        1001000000000000000000001
+        111111111011000001110000000000001
+        100000000011000001110111111111111
+        11110111111111011100000010001
+        11110111111111011101010010001
+        11000000110101011100000010001
+        10002000000000001100000010001
+        10000000000000001101010010001
+        11000001110101011111011110N0111
+        11110111 1110101 101111010001
+        11111111 1111111 111111111111
+
+    ◦ Se qualquer configuração incorreta de qualquer tipo for
+    encontrada no arquivo, o programa deve sair corretamente e
+    retornar "Erro \ n" seguido por uma mensagem de erro explícita
+    de sua escolha.
+
+========================================================
+= Bonus part                                           =
+========================================================
+
+Lista de bônus:
+• Colisões de paredes.
+• Um camarote.
+• Textura do piso e / ou teto.
+• Um HUD.
+• Capacidade de olhar para cima e para baixo.
+• Pule ou agache-se.
+• Um efeito de sombra relacionado à distância.
+• Barra de vida.
+• Mais itens no labirinto.
+• Colisões de objetos.
+• Ganhar pontos e / ou perder vidas ao apanhar objetos / armadilhas.
+• Portas que podem abrir e fechar.
+• Portas secretas.
+• Animações de um tiro de arma ou sprite animado.
+• Vários níveis.
+• Sons e música.
+• Gire o ponto de vista com o mouse.
+• Armas e bandidos para lutar!
+
+= Para ganhar todos os pontos de bônus, você precisa validar pelo menos
+14 deles, então escolha com sabedoria, mas tome cuidado para não perder
+seu tempo!
+
+= Você tem permissão para usar outras funções para completar a parte bônus,
+desde que seu uso seja justificado durante sua avaliação. Você também pode
+modificar o formato de arquivo de cena esperado para atender às suas
+necessidades. Seja esperto!
